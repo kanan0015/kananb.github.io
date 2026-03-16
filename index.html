@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanan Baghirzada — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --text: #e8e6f0;
+    --muted: #7a7890;
+    --accent: #7f6fdd;
+    --accent2: #1d9e75;
+    --accent3: #ef9f27;
+    --border: rgba(255,255,255,0.07);
+    --border-accent: rgba(127,111,221,0.4);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(127,111,221,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(127,111,221,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .scanline {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    animation: scan 4s linear infinite;
+    opacity: 0.4;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  @keyframes scan {
+    0% { top: 0%; }
+    100% { top: 100%; }
+  }
+
+  main {
+    position: relative;
+    z-index: 2;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 28px 100px;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 0 32px;
+    border-bottom: 0.5px solid var(--border);
+    margin-bottom: 90px;
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--accent);
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 48px;
+    align-items: start;
+    margin-bottom: 110px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent2);
+  }
+
+  h1 {
+    font-size: clamp(44px, 8vw, 76px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 26px;
+    color: var(--text);
+  }
+
+  h1 .accent-word {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 500px;
+    margin-bottom: 36px;
+  }
+
+  .hero-desc span { color: var(--accent3); }
+
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 13px 26px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: opacity 0.2s, transform 0.1s;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-ghost {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 13px 26px;
+    background: transparent;
+    color: var(--text);
+    border: 0.5px solid var(--border-accent);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.1s;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-ghost:hover { background: rgba(127,111,221,0.08); }
+  .btn-ghost:active { transform: scale(0.98); }
+
+  /* STATUS CARD */
+  .status-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 22px;
+    width: 200px;
+    flex-shrink: 0;
+  }
+
+  .status-dot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent2);
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .status-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .status-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .status-item strong {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 11px;
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  /* SKILLS */
+  .skills-section {
+    margin-bottom: 90px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 22px 18px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent, var(--accent));
+  }
+
+  .skill-card:hover {
+    border-color: var(--border-accent);
+    transform: translateY(-3px);
+  }
+
+  .skill-icon {
+    font-size: 22px;
+    margin-bottom: 14px;
+    display: block;
+    line-height: 1;
+  }
+
+  .skill-name {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .skill-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    padding: 3px 8px;
+    background: rgba(127,111,221,0.1);
+    color: var(--accent);
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ABOUT */
+  .about-section {
+    margin-bottom: 90px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .about-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.85;
+  }
+
+  .about-text p { margin-bottom: 18px; }
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-text em {
+    color: var(--text);
+    font-style: normal;
+  }
+
+  .currently-box {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 26px;
+  }
+
+  .box-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .currently-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  .currently-list li {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    gap: 12px;
+    line-height: 1.6;
+    align-items: flex-start;
+  }
+
+  .currently-list li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    margin-bottom: 60px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .contact-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 22px 18px;
+    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none;
+    display: block;
+  }
+
+  .contact-card:hover {
+    border-color: var(--border-accent);
+    background: var(--surface2);
+  }
+
+  .contact-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .contact-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    word-break: break-all;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .footer-build {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .footer-build span { color: var(--accent2); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 680px) {
+    .hero { grid-template-columns: 1fr; }
+    .status-card { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    nav { flex-direction: column; gap: 18px; align-items: flex-start; }
+    .nav-links { gap: 20px; }
+    h1 { font-size: 42px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="scanline"></div>
+
+<main>
+  <nav>
+    <div class="logo">KB.dev<span class="cursor"></span></div>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="hero-tag">Electronics &amp; ICT — KU Leuven</div>
+      <h1>
+        Kanan
+        <span class="accent-word">Baghirzada</span>
+      </h1>
+      <p class="hero-desc">
+        Building at the intersection of <span>hardware</span>, <span>software</span>, and <span>intelligence</span>.
+        Bachelor student in Electronics &amp; ICT Technology, curious about everything that blinks, connects, or thinks.
+      </p>
+      <div class="cta-row">
+        <a href="#contact" class="btn-primary">Get in touch</a>
+        <a href="#skills" class="btn-ghost">See my skills</a>
+      </div>
+    </div>
+
+    <div class="status-card">
+      <div class="status-dot">
+        <span class="dot"></span>
+        Active
+      </div>
+      <div class="status-items">
+        <div class="status-item">
+          <strong>Location</strong>
+          Leuven, Belgium
+        </div>
+        <div class="status-item">
+          <strong>University</strong>
+          KU Leuven
+        </div>
+        <div class="status-item">
+          <strong>Degree</strong>
+          Bachelor Electronics &amp; ICT
+        </div>
+        <div class="status-item">
+          <strong>Status</strong>
+          Open to collaborations
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills-section" id="skills">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Fields of interest</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card" style="--card-accent: #7f6fdd;">
+        <span class="skill-icon">⚙</span>
+        <div class="skill-name">Embedded Systems</div>
+        <div class="skill-desc">Hardware meets code. Microcontrollers, real-time systems, and low-level programming.</div>
+        <div class="skill-tags">
+          <span class="tag">Arduino</span>
+          <span class="tag">RTOS</span>
+          <span class="tag">C/C++</span>
+        </div>
+      </div>
+
+      <div class="skill-card" style="--card-accent: #1d9e75;">
+        <span class="skill-icon">◈</span>
+        <div class="skill-name">AI &amp; Machine Learning</div>
+        <div class="skill-desc">Pattern recognition, neural networks, and the math that makes machines learn.</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">ML</span>
+          <span class="tag">Data</span>
+        </div>
+      </div>
+
+      <div class="skill-card" style="--card-accent: #ef9f27;">
+        <span class="skill-icon">◉</span>
+        <div class="skill-name">Networking &amp; IoT</div>
+        <div class="skill-desc">Connected devices, protocols, and building systems that talk to each other.</div>
+        <div class="skill-tags">
+          <span class="tag">TCP/IP</span>
+          <span class="tag">MQTT</span>
+          <span class="tag">WiFi</span>
+        </div>
+      </div>
+
+      <div class="skill-card" style="--card-accent: #5dcaa5;">
+        <span class="skill-icon">⌨</span>
+        <div class="skill-name">Software Development</div>
+        <div class="skill-desc">Clean code, algorithms, and building tools that solve real problems.</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Git</span>
+          <span class="tag">Linux</span>
+        </div>
+      </div>
+
+      <div class="skill-card" style="--card-accent: #d85a30;">
+        <span class="skill-icon">⬡</span>
+        <div class="skill-name">Cybersecurity</div>
+        <div class="skill-desc">Securing systems, understanding vulnerabilities, and thinking like an attacker to defend like a pro.</div>
+        <div class="skill-tags">
+          <span class="tag">Networks</span>
+          <span class="tag">Protocols</span>
+          <span class="tag">CTF</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">About</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Hi, I'm <em>Kanan</em> — a bachelor student in Electronics &amp; ICT Technology at <em>KU Leuven</em>, Belgium.
+          I'm drawn to the messy, exciting space where hardware and software converge.
+        </p>
+        <p>
+          I'm at the beginning of my journey, and I believe that's the most exciting place to be.
+          Every circuit I wire and every function I write teaches me something new. I'm actively building
+          projects to sharpen my skills across embedded systems, AI, and security.
+        </p>
+        <p>
+          If you're working on something interesting or want to collaborate — <em>let's talk</em>.
+        </p>
+      </div>
+
+      <div class="currently-box">
+        <div class="box-label">// Currently</div>
+        <ul class="currently-list">
+          <li>Studying Electronics &amp; ICT at KU Leuven</li>
+          <li>Learning embedded systems &amp; microcontrollers</li>
+          <li>Exploring AI/ML fundamentals</li>
+          <li>Building my first personal projects</li>
+          <li>Open to internships &amp; collaborations</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Contact</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="contact-grid">
+      <!-- UPDATE THESE WITH YOUR REAL DETAILS -->
+      <a href="mailto:kananbaghirzada@email.com" class="contact-card">
+        <div class="contact-label">Email</div>
+        <div class="contact-value">kananbaghirzada@email.com</div>
+      </a>
+      <a href="https://github.com/kanan0015" target="_blank" class="contact-card">
+        <div class="contact-label">GitHub</div>
+        <div class="contact-value">github.com/kanan0015</div>
+      </a>
+      <a href="https://linkedin.com/in/kanan-baghirzada0" target="_blank" class="contact-card">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">linkedin.com/in/kanan-baghirzada0</div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-text">© 2025 Kanan Baghirzada</div>
+    <div class="footer-build">Built with <span>curiosity</span> · Leuven, BE</div>
+  </footer>
+</main>
+
+</body>
+</html>
